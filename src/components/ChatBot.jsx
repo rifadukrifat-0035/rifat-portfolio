@@ -53,10 +53,11 @@ export default function ChatBot() {
 
   // Initialize Groq Client
   // Using dangerouslyAllowBrowser because we are calling it directly from React
-  const groq = new Groq({ 
-    apiKey: import.meta.env.VITE_GROQ_API_KEY,
+  const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+  const groq = apiKey ? new Groq({ 
+    apiKey: apiKey,
     dangerouslyAllowBrowser: true 
-  });
+  }) : null;
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -92,6 +93,20 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
+      // Check if API key is configured
+      if (!groq) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: 'model',
+            content: "AI assistant is not configured yet. Please add your Groq API key to enable chat. Email Rifat directly at rifadukrifat@gmail.com!",
+            createdAt: Date.now()
+          }
+        ]);
+        setIsLoading(false);
+        return;
+      }
+
       // Format messages for Groq API
       const apiMessages = [
         { role: "system", content: SYSTEM_PROMPT },
