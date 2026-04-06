@@ -20,6 +20,9 @@ import gallery4 from './assets/1s_g4BbLeMa1HU1drQDz7RObjZfRt0pH3.jpg'
 import geoplan1 from './assets/geoplan1.jpg'
 import geoplan2 from './assets/geoplan2.jpg'
 
+// --- নতুন চ্যাটবট ইম্পোর্ট ---
+import ChatBot from './components/ChatBot'
+
 const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
@@ -182,6 +185,8 @@ const timeline = [
 const heroSubtext =
   'Urban Planning Researcher & AI Engineer — bridging Geospatial Intelligence with Climate Resilience'
 
+const cvDownloadUrl = `${import.meta.env.BASE_URL}Rifadul-CV.pdf`
+
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0 },
@@ -261,11 +266,12 @@ function App() {
                     View Projects
                     <ChevronRight className="ml-2 h-4 w-4" />
                   </a>
-                  <a href="/Rifat_CV.pdf" download className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10">
+                  <a href={cvDownloadUrl} download className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10">
                     <FileText className="mr-2 h-4 w-4" />
                     Download CV
                   </a>
                 </div>
+                <p className="text-sm text-slate-400">PDF download available from the hero button and contact section.</p>
               </div>
               <div className="rounded-[36px] border border-white/10 bg-white/5 p-1 shadow-[0_40px_120px_rgba(0,0,0,0.25)]">
                 <div className="relative overflow-hidden rounded-[32px] bg-slate-950">
@@ -425,15 +431,17 @@ function App() {
                       ))}
                     </div>
                     <p className="text-slate-300 leading-relaxed mb-6 flex-grow">{project.description}</p>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-emerald-200 transition-colors group"
-                    >
-                      View Project
-                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </a>
+                    {activeTab === 'Planning' && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-emerald-200 transition-colors group"
+                      >
+                        View Project
+                        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </a>
+                    )}
                   </div>
                 </motion.article>
               ))}
@@ -505,22 +513,18 @@ function App() {
                 <a href="mailto:rifadukrifat@gmail.com" className="inline-flex items-center gap-3 text-sm text-slate-100 transition hover:text-emerald-300">
                   <Mail className="h-5 w-5 text-emerald-300" /> rifadukrifat@gmail.com
                 </a>
+                <a href={cvDownloadUrl} download className="inline-flex items-center gap-3 text-sm text-slate-100 transition hover:text-sky-300">
+                  <FileText className="h-5 w-5 text-sky-300" /> Download CV PDF
+                </a>
               </div>
             </div>
           </motion.div>
         </section>
       </main>
 
-      <motion.a
-        href="#contact"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.3 }}
-        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/95 px-5 py-3 text-sm font-semibold text-slate-100 shadow-[0_30px_80px_rgba(16,185,129,0.18)] transition hover:-translate-y-1 hover:bg-slate-900/95"
-      >
-        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300">🤖</span>
-        Ask Rifat's AI
-      </motion.a>
+      {/* --- আগের ডামি বাবল মুছে এখানে আসল চ্যাটবট বসানো হলো --- */}
+      <ChatBot />
+      
     </div>
   )
 }

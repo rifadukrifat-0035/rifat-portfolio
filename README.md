@@ -10,4 +10,5 @@ A Vite + React + Tailwind portfolio website for Md. Rifadul Islam Rifat, combini
 - Stats bento grid and project tabs
 - Skills columns and experience timeline
 - Contact section with LinkedIn, GitHub, and email links
+- Download CV PDF in the hero and contact sections
 - Deploy-ready GitHub Actions workflow for GitHub Pages
